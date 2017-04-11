@@ -107,35 +107,57 @@ public class CollegeDBTester {
     }
 
     public static void handleQuery1() {
-        retrieveFromTable("SELECT * FROM spr17_csc422_qward1.PROFESSOR_15;");
+        /*Show all the information from Professor table*/
+        retrieveFromTable("SELECT * FROM PROFESSOR_15;");
     }
 
     public static void handleQuery2() {
-
+        /*Show the BannerId and Names of all students with this <status>*/
+        retrieveFromTable("SELECT * FROM ;");
     }
 
     public static void handleQuery3() {
-
+        /*Show the professor id, professor name, and Department for this <dept id>*/
+        retrieveFromTable("SELECT * FROM ;");
     }
 
     public static void handleQuery4() {
-
+        /*Show the Professor Name, Course Name, Semester and Section for all courses in this <deptId>.*/
+        retrieveFromTable("SELECT p.ProfessorName, c.CourseName, t.TA_Semester, t.TA_Section FROM PROFESSOR_15 p JOIN TEACHING_ASSIGNMENT_15 t ON t.ProfessorId = p.ProfessorId JOIN COURSE_15 c ON c.CourseCode = t.CourseCode WHERE p.DepartmentId = 'CSC';");
     }
 
     public static void handleQuery5() {
-
+        /*Show the Student name, Course Name, Semester and Section and grade for the student with this <bannerId> */
+        retrieveFromTable(
+                "SELECT "
+                + "    s.StudentName,"
+                + "    c.CourseName,"
+                + "    t.TR_Semester,"
+                + "    t.TR_Section,"
+                + "    t.TR_Grade"
+                + " FROM"
+                + "    STUDENT_15 s"
+                + "        JOIN"
+                + "    TRANSCRIPT_15 t ON t.StudentId = s.BannerId"
+                + "        JOIN"
+                + "    COURSE_15 c ON c.CourseCode = t.CourseCode"
+                + " WHERE"
+                + "    s.BannerId = '101';");
     }
 
     public static void handleQuery6() {
-
+        /*Insert a new department*/
+        insertIntoTable("INSERT INTO `DEPARTMENT_15` (`DepartmentId`, `DepartmentName`) VALUES ('CIS', 'Computer Information Systems');");
     }
 
     public static void handleQuery7() {
-
+        /*Update a Student Status*/
+        updateTable("UPDATE `STUDENT_15` SET `Status`='Junior' WHERE `BannerId`='102';");
     }
 
     public static void handleQuery8() {
-
+        /*Delete a department*/
+        deleteFromTable("DELETE FROM `DEPARTMENT_15` WHERE `DepartmentId`='CIS';");
     }
 
     private static void handleInteractiveQueries() {
