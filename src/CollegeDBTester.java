@@ -112,21 +112,49 @@ public class CollegeDBTester {
     }
 
     public static void handleQuery2() {
-        /*Show the BannerId and Names of all students with this <status>*/
-        retrieveFromTable("SELECT * FROM ;");
+    Scanner in = new Scanner(System.in);
+    System.out.print("Status: ");
+    String Status = in.next();
+    /*Show the BannerId and Names of all students with this <status>*/
+    retrieveFromTable("SELECT "
+            + "    BannerId, StudentName"
+            + " FROM"
+            + "    STUDENT_15"
+            + " WHERE"
+            + "    `Status` = '" + Status + "'");
     }
 
     public static void handleQuery3() {
-        /*Show the professor id, professor name, and Department for this <dept id>*/
-        retrieveFromTable("SELECT * FROM ;");
+    Scanner in = new Scanner(System.in);
+    System.out.print("Department ID: ");
+    String DepartmentId = in.next();
+    /*Show the professor id, professor name, and Department for this <dept id>*/
+    retrieveFromTable("SELECT "
+            + "    p.ProfessorId, p.ProfessorName, d.DepartmentName"
+            + " FROM"
+            + "    PROFESSOR_15 p"
+            + "        JOIN"
+            + "    DEPARTMENT_15 d ON p.DepartmentId = d.DepartmentId"
+            + " WHERE"
+            + "    p.DepartmentId = '" + DepartmentId + "'");
     }
 
     public static void handleQuery4() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Department ID: ");
+        String DepartmentId = in.next();
         /*Show the Professor Name, Course Name, Semester and Section for all courses in this <deptId>.*/
-        retrieveFromTable("SELECT p.ProfessorName, c.CourseName, t.TA_Semester, t.TA_Section FROM PROFESSOR_15 p JOIN TEACHING_ASSIGNMENT_15 t ON t.ProfessorId = p.ProfessorId JOIN COURSE_15 c ON c.CourseCode = t.CourseCode WHERE p.DepartmentId = 'CSC';");
+        retrieveFromTable("SELECT p.ProfessorName, c.CourseName, t.TA_Semester, t.TA_Section "
+                + "FROM PROFESSOR_15 p "
+                + "JOIN TEACHING_ASSIGNMENT_15 t ON t.ProfessorId = p.ProfessorId "
+                + "JOIN COURSE_15 c ON c.CourseCode = t.CourseCode "
+                + "WHERE p.DepartmentId = '" + DepartmentId + "';");
     }
 
     public static void handleQuery5() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Banner ID: ");
+        String BannerId = in.next();
         /*Show the Student name, Course Name, Semester and Section and grade for the student with this <bannerId> */
         retrieveFromTable(
                 "SELECT "
@@ -142,22 +170,36 @@ public class CollegeDBTester {
                 + "        JOIN"
                 + "    COURSE_15 c ON c.CourseCode = t.CourseCode"
                 + " WHERE"
-                + "    s.BannerId = '101';");
+                + "    s.BannerId = '" + BannerId + "';");
     }
 
     public static void handleQuery6() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Department ID: ");
+        String DepartmentId = in.next();
+        System.out.print("Department Name: ");
+        String DepartmentName = in.next();
         /*Insert a new department*/
-        insertIntoTable("INSERT INTO `DEPARTMENT_15` (`DepartmentId`, `DepartmentName`) VALUES ('CIS', 'Computer Information Systems');");
+        insertIntoTable("INSERT INTO `DEPARTMENT_15` (`DepartmentId`, `DepartmentName`) "
+                + "VALUES ('" + DepartmentId + "', '" + DepartmentName + "');");
     }
 
     public static void handleQuery7() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Banner ID: ");
+        String BannerId = in.next();
         /*Update a Student Status*/
-        updateTable("UPDATE `STUDENT_15` SET `Status`='Junior' WHERE `BannerId`='102';");
+        updateTable("UPDATE `STUDENT_15` SET `Status`='Junior' "
+                + "WHERE `BannerId`='" + BannerId + "';");
     }
 
     public static void handleQuery8() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Department ID: ");
+        String DepartmentId = in.next();
         /*Delete a department*/
-        deleteFromTable("DELETE FROM `DEPARTMENT_15` WHERE `DepartmentId`='CIS';");
+        deleteFromTable("DELETE FROM `DEPARTMENT_15` "
+                + "WHERE `DepartmentId`='" + DepartmentId + "';");
     }
 
     private static void handleInteractiveQueries() {
